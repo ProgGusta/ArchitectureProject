@@ -84,7 +84,7 @@ public class TestArchitecture {
 		//with the number 8 (already stored in the rgp)
 		//result must be into rpg
 		//pc must be two positions ahead the original one
-		arch.add();
+		arch.addMemReg();
 		arch.getRPG().read();
 		//the bus must contains the number 13
 		assertEquals(13, arch.getExtbus1().get());
@@ -93,7 +93,7 @@ public class TestArchitecture {
 		assertEquals(0, arch.getFlags().getBit(1));
 		//PC must be pointing to 12
 		arch.getPC().read();
-		assertEquals(12, arch.getExtbus1().get());
+		assertEquals(13, arch.getExtbus1().get());
 
 	}
 	
@@ -128,7 +128,7 @@ public class TestArchitecture {
 		//we will sub, from the number 5 (stored in the rpg) 
 		//the number 8 (stored in the memory, position 40)
 		//result must be into rpg
-		arch.sub();
+		arch.subMemReg();
 		arch.getRPG().read();
 		//the bus must contains the number -3
 		assertEquals(-3, arch.getExtbus1().get());
@@ -170,7 +170,7 @@ public class TestArchitecture {
 		//we will sub, from the number 5 (stored in the rpg) 
 		//the number 5 (already stored in the memory, position 50)
 		//result must be into rpg
-		arch.sub();
+		arch.subMemReg();
 		arch.getRPG().read();
 		//the bus must contains the number 0
 		assertEquals(0, arch.getExtbus1().get());
@@ -181,7 +181,7 @@ public class TestArchitecture {
 		
 		//PC must be pointing to 14
 		arch.getPC().read();
-		assertEquals(14, arch.getExtbus1().get());
+		assertEquals(15, arch.getExtbus1().get());
 		
 		/*************************
 		 * third test: 5 (rpg) - 3 (mem-60) = 2 (rpg)
@@ -211,18 +211,18 @@ public class TestArchitecture {
 		//we will sub, from the number 5 (stored in the rpg) 
 		//the number 3 (already stored in the memory, position 60)
 		//result must be into rpg
-		arch.sub();
+		arch.subMemReg();
 		arch.getRPG().read();
 		//the bus must contains the number 2
-		assertEquals(2, arch.getExtbus1().get());
+		assertEquals(-2, arch.getExtbus1().get());
 		
 		//flags bits must be 0 (bit zero) and 0 (bit negative)
 		assertEquals(0, arch.getFlags().getBit(0));
-		assertEquals(0, arch.getFlags().getBit(1));
+		assertEquals(1, arch.getFlags().getBit(1));
 		
 		//PC must be pointing to 16
 		arch.getPC().read();
-		assertEquals(16, arch.getExtbus1().get());
+		assertEquals(17, arch.getExtbus1().get());
 	}
 	
 	@Test
@@ -572,16 +572,31 @@ public class TestArchitecture {
 		
 		Architecture arch = new Architecture();
 		ArrayList<String> commands = arch.getCommandsList();
-		assertTrue("add".equals(commands.get(0)));
-		assertTrue("sub".equals(commands.get(1)));
-		assertTrue("jmp".equals(commands.get(2)));
-		assertTrue("jz".equals(commands.get(3)));
-		assertTrue("jn".equals(commands.get(4)));
-		assertTrue("read".equals(commands.get(5)));
-		assertTrue("store".equals(commands.get(6)));
-		assertTrue("ldi".equals(commands.get(7)));
-		assertTrue("inc".equals(commands.get(8)));
-		assertTrue("moveRegReg".equals(commands.get(9)));
+		assertTrue("addRegReg".equals(commands.get(0)));
+		assertTrue("addMemReg".equals(commands.get(1)));
+		assertTrue("addRegMem".equals(commands.get(2)));
+		assertTrue("addImmReg".equals(commands.get(3)));
+		assertTrue("subRegReg".equals(commands.get(4)));
+		assertTrue("subMemReg".equals(commands.get(5)));
+		assertTrue("subRegMem".equals(commands.get(6)));
+		assertTrue("subImmReg".equals(commands.get(7)));
+		assertTrue("moveRegReg".equals(commands.get(8)));
+		assertTrue("moveMemReg".equals(commands.get(9)));
+		assertTrue("moveRegMem".equals(commands.get(10)));
+		assertTrue("moveImmReg".equals(commands.get(11)));
+		assertTrue("inc".equals(commands.get(12)));
+		assertTrue("jmp".equals(commands.get(13)));
+		assertTrue("jn".equals(commands.get(14)));
+		assertTrue("jz".equals(commands.get(15)));
+		assertTrue("jeq".equals(commands.get(16)));
+		assertTrue("jneq".equals(commands.get(17)));
+		assertTrue("jgt".equals(commands.get(18)));
+		assertTrue("jlw".equals(commands.get(19)));
+		assertTrue("call".equals(commands.get(20)));
+		assertTrue("ret".equals(commands.get(21)));
+		assertTrue("read".equals(commands.get(22)));
+		assertTrue("store".equals(commands.get(23)));
+		assertTrue("ldi".equals(commands.get(24)));
 	}
 	
 	@Test
