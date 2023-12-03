@@ -505,8 +505,6 @@ public class testAssembler {
 		//ir is now the number 3. It must be found in position 9 
 		assertEquals("3", ass.getExecProgram().get(9));
 		
-
-		
 	}
 	
 	@Test

@@ -402,21 +402,7 @@ public class Architecture {
 
 		//Salvar o endereço para o PC recuperar depois
 		PC.internalRead();
-		//IR.internalStore(); //salva em IR
-
-		//Valor da memoria
-		//PC.read();
-		//memory.read(); // the parameter is now in the external bus. 
-						//but the parameter is an address and we need the value
-
-		//coloca na ula no reg0
-		//PC.store();
-		//PC.internalRead();
 		ula.internalStore(0);
-
-		//recuperando valor do PC
-		//IR.internalRead();
-		//PC.internalStore();
 
 		pcPlusPlus();
 
@@ -603,21 +589,7 @@ public class Architecture {
 
 		//Salvar o endereço para o PC recuperar depois
 		PC.internalRead();
-		//IR.internalStore(); //salva em IR
-
-		//Valor da memoria
-		//PC.read();
-		//memory.read(); // the parameter is now in the external bus. 
-						//but the parameter is an address and we need the value
-
-		//coloca na ula no reg0
-		//PC.store();
-		//PC.internalRead();
 		ula.internalStore(0);
-
-		//recuperando valor do PC
-		//IR.internalRead();
-		//PC.internalStore();
 
 		pcPlusPlus();
 
@@ -1234,7 +1206,6 @@ public class Architecture {
 		pcPlusPlus();
 
 		PC.internalRead();
-		//memory.read(); //the second register id is now in the external bus.
 		IR.internalStore();
 
 		pcPlusPlus();

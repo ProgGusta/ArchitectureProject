@@ -18,7 +18,7 @@ import architecture.Architecture;
 
 public class Assembler {
 	
-	private ArrayList<String> lines;
+	private ArrayList<String> lines;  
 	private ArrayList<String> objProgram;
 	private ArrayList<String> execProgram;
 	private Architecture arch;
