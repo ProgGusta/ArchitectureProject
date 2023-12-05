@@ -685,7 +685,7 @@ public class TestArchitecture {
 		arch.jgt();
 		//PC contains the number 32
 		arch.getPC().internalRead();
-		assertEquals(33, arch.getIntbus2().get());
+		assertEquals(34, arch.getIntbus2().get());
 	}
 
 	@Test
@@ -755,7 +755,7 @@ public class TestArchitecture {
 		arch.jlw();
 		//PC contains the number 32
 		arch.getPC().internalRead();
-		assertEquals(33, arch.getIntbus2().get());
+		assertEquals(34, arch.getIntbus2().get());
 	}
 	
 	@Test

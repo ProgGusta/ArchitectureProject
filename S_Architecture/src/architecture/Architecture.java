@@ -871,11 +871,11 @@ public class Architecture {
 		ula.internalRead(1);
 		setStatusFlags(intbus2.get());
 
+		pcPlusPlus();
+
 		//Se regA for maior
 		if (Flags.getBit(0) == 0 && Flags.getBit(1) == 0)
 		{
-			pcPlusPlus();
-
 			PC.read();
 			memory.read();
 			PC.store();
@@ -911,11 +911,11 @@ public class Architecture {
 		ula.internalRead(1);
 		setStatusFlags(intbus2.get());
 
+		pcPlusPlus();
+
 		//Se regA for maior
 		if (Flags.getBit(1) == 1)
 		{
-			pcPlusPlus();
-
 			PC.read();
 			memory.read();
 			PC.store();
