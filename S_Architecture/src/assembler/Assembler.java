@@ -417,11 +417,11 @@ public class Assembler {
 		int inicioPilha = arch.getMemorySize()-1-variables.size();
 		execProgram.add(0, Integer.toString(commands.indexOf("moveImmReg")));
 		execProgram.add(1, Integer.toString(inicioPilha));
-		execProgram.add(2, Integer.toString(searchRegisterId("stkTop", arch.getRegistersList())));
+		execProgram.add(2, Integer.toString(searchRegisterId("stacktop", arch.getRegistersList())));
 
 		execProgram.add(3, Integer.toString(commands.indexOf("moveImmReg")));
 		execProgram.add(4, Integer.toString(inicioPilha));
-		execProgram.add(5, Integer.toString(searchRegisterId("stkBottom", arch.getRegistersList())));
+		execProgram.add(5, Integer.toString(searchRegisterId("stackBotton", arch.getRegistersList())));
 		
 		//corrige os endereços dos labels
 		for(int x = 0; x<labelsAdresses.size(); x++) {
@@ -559,7 +559,7 @@ public class Assembler {
 	}
 
 	public static void main(String[] args) throws IOException {
-		String filename = args[0];
+		String filename = "testAssembly";
 		Assembler assembler = new Assembler();
 		System.out.println("Reading source assembler file: "+filename+".dsf");
 		assembler.read(filename);
@@ -568,5 +568,4 @@ public class Assembler {
 		System.out.println("Generating executable: "+filename+".dxf");
 		assembler.makeExecutable(filename);
 	}
-		
 }

@@ -1,0 +1,18 @@
+a
+b
+c
+move 25 %RPG0
+move 12 %RPG1
+move 83 %RPG2
+move 37 %RPG3
+move %RPG0 a
+move %RPG1 b
+move %RPG3 c
+laco:
+add %RPG0 %RPG1
+sub %RPG1 c
+jz laco
+inc %RPG2
+add %RPG0 %RPG3
+jgt %RPG2 %RPG3 laco
+inc %RPG0

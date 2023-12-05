@@ -1538,6 +1538,4 @@ public class Architecture {
 		arch.readExec("program");
 		arch.controlUnitEexec();
 	}
-	
-
 }
