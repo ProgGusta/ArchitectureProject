@@ -131,7 +131,8 @@ public class TestArchitecture {
 		//result must be into rpg
 		//pc must be two positions ahead the original one
 		arch.addRegMem();
-		arch.getRPG().read();
+		arch.getExtbus1().put(40);
+		arch.getMemory().read();
 		//the bus must contains the number 13
 		assertEquals(13, arch.getExtbus1().get());
 		//the flags bits 0 and 1 must be 0
@@ -343,7 +344,7 @@ public class TestArchitecture {
 		//with the number 8 (already stored in the rgp)
 		//result must be into rpg
 		//pc must be two positions ahead the original one
-		arch.addRegReg();
+		arch.subRegReg();
 		arch.getRPG1().read();
 		//the bus must contains the number 3
 		assertEquals(3, arch.getExtbus1().get());
@@ -380,7 +381,7 @@ public class TestArchitecture {
 		//with the number 8 (already stored in the rgp)
 		//result must be into rpg
 		//pc must be two positions ahead the original one
-		arch.addImmReg();
+		arch.subImmReg();
 		arch.getRPG().read();
 		//the bus must contains the number 13
 		assertEquals(12, arch.getExtbus1().get());
@@ -684,7 +685,7 @@ public class TestArchitecture {
 		arch.jgt();
 		//PC contains the number 32
 		arch.getPC().internalRead();
-		assertEquals(34, arch.getIntbus2().get());
+		assertEquals(33, arch.getIntbus2().get());
 	}
 
 	@Test
@@ -754,7 +755,7 @@ public class TestArchitecture {
 		arch.jlw();
 		//PC contains the number 32
 		arch.getPC().internalRead();
-		assertEquals(34, arch.getIntbus2().get());
+		assertEquals(33, arch.getIntbus2().get());
 	}
 	
 	@Test
@@ -1098,6 +1099,58 @@ public class TestArchitecture {
 		//Testing if PC points to 3 positions after the original
 		//PC was pointing to 30; now it must be pointing to 33
 		arch.getPC().read();assertEquals(33, arch.getExtbus1().get());
+	}
+
+	@Test
+	public void testCall() {
+		Architecture arch = new Architecture();
+		
+		//storing the number 40 in PC
+		arch.getIntbus2().put(48);
+		arch.getPC().internalStore();
+		
+		//storing the number 90 in the into the memory, in position 49, the position just after PC
+		arch.getExtbus1().put(49);
+		arch.getMemory().store();
+		arch.getExtbus1().put(90);
+		arch.getMemory().store();
+		
+		arch.getIntbus2().put(200);
+		arch.getSTT().internalStore();
+		
+		arch.call();
+		
+		arch.getPC().read();
+		assertEquals(90, arch.getExtbus1().get());
+		assertEquals(199, arch.getSTT().getData());
+		arch.getExtbus1().put(200);
+		arch.getMemory().read();
+		assertEquals(50, arch.getExtbus1().get());
+	}
+
+	@Test
+	public void testeRet() {
+		Architecture arch = new Architecture();
+		
+		//storing the number 48 in PC
+		arch.getIntbus2().put(48);
+		arch.getPC().internalStore();
+		
+		//storing the number 60 in the into the memory, in position 49, the position just after PC
+		arch.getExtbus1().put(49);
+		arch.getMemory().store();
+		arch.getExtbus1().put(60);
+		arch.getMemory().store();
+		
+		arch.getIntbus2().put(200);
+		arch.getSTT().internalStore();
+		
+		arch.call();
+		arch.ret();
+		
+		arch.getPC().read();
+		assertEquals(50, arch.getExtbus1().get());
+		assertEquals(200, arch.getSTT().getData());
 	}
 		
 	

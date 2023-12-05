@@ -18,14 +18,14 @@ import architecture.Architecture;
 
 public class Assembler {
 	
-	private ArrayList<String> lines;  
+	private ArrayList<String> lines;  //linhas do programa 
 	private ArrayList<String> objProgram;
 	private ArrayList<String> execProgram;
 	private Architecture arch;
-	private ArrayList<String>commands;	
-	private ArrayList<String>labels;
+	private ArrayList<String>commands;	//Lista de comandos de acordo com a arquitetura
+	private ArrayList<String>labels; //lista de labels
 	private ArrayList<Integer> labelsAdresses;
-	private ArrayList<String>variables;
+	private ArrayList<String>variables; //lista de variaveis 
 	
 	
 	public Assembler() {
@@ -405,10 +405,28 @@ public class Assembler {
 			return;
 		execProgram = (ArrayList<String>) objProgram.clone();
 		replaceAllVariables();
+		initializeStack();
 		replaceLabels(); //replacing all labels by the address they refer to
 		replaceRegisters(); //replacing all registers by the register id they refer to
 		saveExecFile(filename);
 		System.out.println("Finished");
+	}
+
+	// Adiciona o comando para colocar valores no stacktop e stackbottom
+	protected void initializeStack(){
+		int inicioPilha = arch.getMemorySize()-1-variables.size();
+		execProgram.add(0, Integer.toString(commands.indexOf("moveImmReg")));
+		execProgram.add(1, Integer.toString(inicioPilha));
+		execProgram.add(2, Integer.toString(searchRegisterId("stkTop", arch.getRegistersList())));
+
+		execProgram.add(3, Integer.toString(commands.indexOf("moveImmReg")));
+		execProgram.add(4, Integer.toString(inicioPilha));
+		execProgram.add(5, Integer.toString(searchRegisterId("stkBottom", arch.getRegistersList())));
+		
+		//corrige os endereços dos labels
+		for(int x = 0; x<labelsAdresses.size(); x++) {
+			labelsAdresses.set(x, labelsAdresses.get(x) + 6);
+		}
 	}
 
 	/**
