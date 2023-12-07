@@ -21,10 +21,10 @@ public class Assembler {
 	private ArrayList<String> lines;  //linhas do programa 
 	private ArrayList<String> objProgram;
 	private ArrayList<String> execProgram;
-	private Architecture arch;
+	private Architecture arch; //arquitetura
 	private ArrayList<String>commands;	//Lista de comandos de acordo com a arquitetura
 	private ArrayList<String>labels; //lista de labels
-	private ArrayList<Integer> labelsAdresses;
+	private ArrayList<Integer> labelsAdresses; //endereço dos labels
 	private ArrayList<String>variables; //lista de variaveis 
 	
 	
@@ -105,7 +105,6 @@ public class Assembler {
 			     lines.add(linha);
 			}
 			br.close();
-			
 	}
 	
 
@@ -272,6 +271,7 @@ public class Assembler {
 		{}
 
 
+		//salvando iteração
 		objProgram.add(Integer.toString(commandNumber));
 		if (!parameter.isEmpty())
 			objProgram.add(parameter);
@@ -321,6 +321,7 @@ public class Assembler {
 		String p2 = tokens[2];
 		int p=-1;
 
+		//verificando parametros para decidir qual dos comandos usar
 		if ((p1.startsWith("%"))&&(p2.startsWith("%"))) //this is a moveRegReg comand
 			p = commands.indexOf("moveRegReg");
 
@@ -347,6 +348,7 @@ public class Assembler {
 		String p2 = tokens[2];
 		int p=-1;
 
+		//verificando parametros para decidir qual dos comandos usar
 		if ((p1.startsWith("%")) && (p2.startsWith("%")))
 			p = commands.indexOf("addRegReg");
 
@@ -373,6 +375,7 @@ public class Assembler {
 		String p2 = tokens[2];
 		int p=-1;
 
+		//verificando parametros para decidir qual dos comandos usar
 		if ((p1.startsWith("%")) && (p2.startsWith("%")))
 			p = commands.indexOf("subRegReg");
 

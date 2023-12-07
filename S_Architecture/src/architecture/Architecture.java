@@ -308,6 +308,7 @@ public class Architecture {
 		IR.internalRead();
 		PC.internalStore();
 
+		//PC ++
 		pcPlusPlus();
 
 		//pegando o endereço do registrador
@@ -325,6 +326,7 @@ public class Architecture {
 		ula.read(1);
 		registersInternalStore();
 
+		//PC ++
 		pcPlusPlus();
 	}
 
@@ -377,6 +379,7 @@ public class Architecture {
 		IR.internalRead();
 		PC.internalStore();
 
+		//PC ++
 		pcPlusPlus();
 	}
 
@@ -390,7 +393,7 @@ public class Architecture {
 		registersInternalRead();
 
 		ula.store(0); //the RPG value is in ULA (0). This is the first parameter
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		//pegando o endereço do registrador 2
 		PC.read();
@@ -407,6 +410,7 @@ public class Architecture {
 		//Salvando no registrador b
 		registersInternalStore();
 
+		//PC ++
 		pcPlusPlus();
 	}
 
@@ -420,7 +424,7 @@ public class Architecture {
 		IR.internalRead();
 		ula.internalStore(0);
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		//pegando o endereço do registrador
 		PC.read();
@@ -436,7 +440,7 @@ public class Architecture {
 		ula.read(1);
 		registersInternalStore();
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 	}
 	
 
@@ -653,6 +657,7 @@ public class Architecture {
 	public void jmp() {
 		pcPlusPlus(); // PC ++
 
+		//Setando o novo endereço de PC
 		PC.read();
 		memory.read();
 		PC.store();
@@ -689,13 +694,13 @@ public class Architecture {
 	 * @param address
 	 */
 	public void jz() {
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		PC.read();
 		memory.read();// now the parameter value (address of the jz) is in the external bus
 		statusMemory.storeIn1(); //the address is in position 1 of the status memory
 		
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		PC.read();//now the bus has the next istruction address
 		statusMemory.storeIn0(); //the address is in the position 0 of the status memory
@@ -735,7 +740,7 @@ public class Architecture {
 	 * @param address
 	 */
 	public void jn() {
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		PC.read();
 		memory.read();// now the parameter value (address of the jz) is in the external bus
@@ -752,7 +757,7 @@ public class Architecture {
 
 	public void jeq()
 	{
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		// recuperando regA
 		PC.read();
@@ -763,7 +768,7 @@ public class Architecture {
 		registersInternalRead();
 		ula.store(0);
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		// recuperando regB na ula
 		PC.read();
@@ -779,15 +784,16 @@ public class Architecture {
 		ula.internalRead(1);
 		setStatusFlags(intbus2.get());
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 		
 		//salvando a posição de desvio
 		PC.read();
 		memory.read();
 		statusMemory.storeIn1(); //the address is in position 1 of the status memory
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
+		//salvando a posição do fluxo normal
 		PC.read();
 		statusMemory.storeIn0();
 
@@ -799,7 +805,7 @@ public class Architecture {
 
 	public void jneq()
 	{
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		// recuperando regA
 		PC.read();
@@ -826,14 +832,14 @@ public class Architecture {
 		ula.internalRead(1);
 		setStatusFlags(intbus2.get());
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 		
 		//salvando a posição de desvio
 		PC.read();
 		memory.read();
 		statusMemory.storeIn0(); //the address is in position 0 of the status memory
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		PC.read();
 		statusMemory.storeIn1();
@@ -913,7 +919,7 @@ public class Architecture {
 
 		pcPlusPlus();
 
-		//Se regA for maior
+		//Se regA for menor
 		if (Flags.getBit(1) == 1)
 		{
 			PC.read();
@@ -964,19 +970,34 @@ public class Architecture {
 
 	public void ret()
 	{
-		//decrementando uma posição da pilha
+		//verificando se existe algum endereço para o ret
 		stackTop.internalRead();
+		ula.internalStore(0);
+		stackBotton.internalRead();
 		ula.internalStore(1);
-		ula.inc();
+		ula.sub();
 		ula.internalRead(1);
-		stackTop.internalStore();
+		setStatusFlags(intbus2.get());
 
-		//setando o novo endereço de PC
-		stackTop.internalRead();
-		IR.internalStore();
-		IR.read();
-		memory.read();
-		PC.store();
+		//se existir algum endereço na pilha
+		if(Flags.getBit(0) == 0)
+		{
+			//decrementando uma posição da pilha
+			stackTop.internalRead();
+			ula.internalStore(1);
+			ula.inc();
+			ula.internalRead(1);
+			stackTop.internalStore();
+
+			//setando o novo endereço de PC
+			stackTop.internalRead();
+			IR.internalStore();
+			IR.read();
+			memory.read();
+			PC.store();
+		}
+		else
+			pcPlusPlus();
 	}
 	
 	
@@ -1140,22 +1161,24 @@ public class Architecture {
 	 * @param address
 	 */
 	public void inc() {
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
+		//Obtendo o registrador a ser incrementado
 		PC.read();
 		memory.read();
 		demux.setValue(extbus1.get());
 
-		registersInternalRead();
+		registersInternalRead(); //jogando o valor do registrador no barramento
 
+		//executando operação
 		ula.store(1);
 		ula.inc();
 		ula.read(1);
 		setStatusFlags(intbus1.get());
 
-		registersInternalStore();
+		registersInternalStore(); //registrador recebendo o novo valor
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 	}
 	
 	/**
@@ -1192,7 +1215,7 @@ public class Architecture {
 	 * 		  
 	 */
 	public void moveRegReg() {
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		PC.read(); 
 		memory.read(); // the first register id is now in the external bus.
@@ -1200,7 +1223,7 @@ public class Architecture {
 		registersRead(); //starts the read from the register identified into demux bus
 		IR.store();
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		PC.read();
 		memory.read(); // the second register id is now in the external bus.
@@ -1208,19 +1231,21 @@ public class Architecture {
 		IR.read();
 		registersStore(); //performs an internal store for the register identified into demux bus
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 	}
 	
 	public void moveMemReg() {
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
+		//pegando o valor a ser copiado e salvando em IR
 		PC.read(); 
 		memory.read(); 
 		memory.read(); // the first register id is now in the external bus.
 		IR.store();
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
+		//Pegando o endereço do registrador a ter o valor modificado 
 		PC.read();
 		memory.read(); // the second register id is now in the external bus.
 		demux.setValue(extbus1.get());//points to the correct register
@@ -1228,37 +1253,40 @@ public class Architecture {
 		IR.read();
 		registersStore(); //performs an internal store for the register identified into demux bus
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 	}
 
 	public void moveRegMem() {
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
+		//Pegando o endereço do registrador
 		PC.read();
 		memory.read(); //the second register id is now in the external bus.
 		demux.setValue(extbus1.get()); //points to the correct register
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
+		//pegando endereço de memoria a ser modificado
 		PC.read(); 
 		memory.read(); //the first register id is now in the external bus.
 		memory.store();
 		
+		//setando o novo valor
 		registersRead();
 		memory.store();
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 	}
 
 	public void moveImmReg() {
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		//pegando a constante
 		PC.read();
 		memory.read();
 		IR.store();
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 
 		//pegando endereço do REG
 		PC.read(); 
@@ -1269,7 +1297,7 @@ public class Architecture {
 		IR.read();
 		registersStore();
 
-		pcPlusPlus();
+		pcPlusPlus(); //PC ++
 	}
 	
 	public ArrayList<Register> getRegistersList() {
@@ -1535,7 +1563,7 @@ public class Architecture {
 	
 	public static void main(String[] args) throws IOException {
 		Architecture arch = new Architecture(true);
-		arch.readExec("program");
+		arch.readExec("testAssembly");
 		arch.controlUnitEexec();
 	}
 }
