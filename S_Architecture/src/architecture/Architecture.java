@@ -241,15 +241,6 @@ public class Architecture {
 		}
 	}
 
-	public void pcPlusPlus()
-	{
-		PC.internalRead();
-		ula.internalStore(1);
-		ula.inc();
-		ula.internalRead(1);
-		PC.internalStore(); //now PC points to the parameter address
-	}
-
 	/**
 	 * This method implements the microprogram for
 	 * 					ADD address
@@ -287,7 +278,11 @@ public class Architecture {
 	 * @param address
 	 */
 	public void addMemReg() {
-		pcPlusPlus(); //PC++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC++
 
 		//Salvar o endereço para o PC recuperar depois
 		PC.internalRead();
@@ -309,7 +304,11 @@ public class Architecture {
 		PC.internalStore();
 
 		//PC ++
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//pegando o endereço do registrador
 		PC.read();
@@ -327,11 +326,19 @@ public class Architecture {
 		registersInternalStore();
 
 		//PC ++
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 
 	public void addRegMem() {
-		pcPlusPlus(); //PC++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC++
 
 		//pegando o endereço do registrador
 		PC.read();
@@ -340,7 +347,11 @@ public class Architecture {
 		registersInternalRead();
 
 		ula.store(0); //the RPG value is in ULA (0). This is the first parameter
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//Salvar o endereço para o PC recuperar depois
 		PC.internalRead();
@@ -380,11 +391,19 @@ public class Architecture {
 		PC.internalStore();
 
 		//PC ++
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 
 	public void addRegReg() {
-		pcPlusPlus(); //PC++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC++
 
 		//pegando o endereço do registrador 1
 		PC.read();
@@ -393,7 +412,11 @@ public class Architecture {
 		registersInternalRead();
 
 		ula.store(0); //the RPG value is in ULA (0). This is the first parameter
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//pegando o endereço do registrador 2
 		PC.read();
@@ -411,11 +434,19 @@ public class Architecture {
 		registersInternalStore();
 
 		//PC ++
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 
 	public void addImmReg() {
-		pcPlusPlus(); //PC++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC++
 
 		//Salvar o endereço para o PC recuperar depois
 		PC.read();
@@ -424,7 +455,11 @@ public class Architecture {
 		IR.internalRead();
 		ula.internalStore(0);
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//pegando o endereço do registrador
 		PC.read();
@@ -440,7 +475,11 @@ public class Architecture {
 		ula.read(1);
 		registersInternalStore();
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 	}
 	
 
@@ -481,7 +520,11 @@ public class Architecture {
 	 * @param address
 	 */
 	public void subMemReg() {
-		pcPlusPlus(); //PC++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC++
 
 		//Salvar o endereço para o PC recuperar depois
 		PC.internalRead();
@@ -502,7 +545,11 @@ public class Architecture {
 		IR.internalRead();
 		PC.internalStore();
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//pegando o endereço do registrador
 		PC.read();
@@ -519,11 +566,19 @@ public class Architecture {
 		ula.read(1);
 		registersInternalStore();
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 
 	public void subRegMem() {
-		pcPlusPlus(); //PC++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC++
 
 		//pegando o endereço do registrador
 		PC.read();
@@ -532,7 +587,11 @@ public class Architecture {
 		registersInternalRead();
 
 		ula.store(0); //the RPG value is in ULA (0). This is the first parameter
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//Salvar o endereço para o PC recuperar depois
 		PC.internalRead();
@@ -571,11 +630,19 @@ public class Architecture {
 		IR.internalRead();
 		PC.internalStore();
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 
 	public void subRegReg() {
-		pcPlusPlus(); //PC++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC++
 
 		//pegando o endereço do registrador 1
 		PC.read();
@@ -584,7 +651,11 @@ public class Architecture {
 		registersInternalRead();
 
 		ula.store(0); //the RPG value is in ULA (0). This is the first parameter
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//pegando o endereço do registrador 2
 		PC.read();
@@ -601,11 +672,19 @@ public class Architecture {
 		//Salvando no registrador b
 		registersInternalStore();
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 
 	public void subImmReg() {
-		pcPlusPlus(); //PC++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC++
 
 		//Salvar o endereço para o PC recuperar depois
 		PC.read();
@@ -614,7 +693,11 @@ public class Architecture {
 		IR.internalRead();
 		ula.internalStore(0);
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//pegando o endereço do registrador
 		PC.read();
@@ -630,7 +713,11 @@ public class Architecture {
 		ula.read(1);
 		registersInternalStore();
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 	
 	/**
@@ -655,7 +742,11 @@ public class Architecture {
 	 * @param address
 	 */
 	public void jmp() {
-		pcPlusPlus(); // PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; // PC ++
 
 		//Setando o novo endereço de PC
 		PC.read();
@@ -694,13 +785,21 @@ public class Architecture {
 	 * @param address
 	 */
 	public void jz() {
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		PC.read();
 		memory.read();// now the parameter value (address of the jz) is in the external bus
 		statusMemory.storeIn1(); //the address is in position 1 of the status memory
 		
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		PC.read();//now the bus has the next istruction address
 		statusMemory.storeIn0(); //the address is in the position 0 of the status memory
@@ -740,13 +839,21 @@ public class Architecture {
 	 * @param address
 	 */
 	public void jn() {
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		PC.read();
 		memory.read();// now the parameter value (address of the jz) is in the external bus
 		statusMemory.storeIn1(); //the address is in position 1 of the status memory
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		PC.read();//now the bus has the next istruction address
 		statusMemory.storeIn0(); //the address is in the position 0 of the status memory
@@ -757,7 +864,11 @@ public class Architecture {
 
 	public void jeq()
 	{
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		// recuperando regA
 		PC.read();
@@ -768,7 +879,11 @@ public class Architecture {
 		registersInternalRead();
 		ula.store(0);
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		// recuperando regB na ula
 		PC.read();
@@ -784,14 +899,22 @@ public class Architecture {
 		ula.internalRead(1);
 		setStatusFlags(intbus2.get());
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 		
 		//salvando a posição de desvio
 		PC.read();
 		memory.read();
 		statusMemory.storeIn1(); //the address is in position 1 of the status memory
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//salvando a posição do fluxo normal
 		PC.read();
@@ -805,7 +928,11 @@ public class Architecture {
 
 	public void jneq()
 	{
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		// recuperando regA
 		PC.read();
@@ -816,7 +943,11 @@ public class Architecture {
 		registersInternalRead();
 		ula.store(0);
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		// recuperando regB na ula
 		PC.read();
@@ -832,14 +963,22 @@ public class Architecture {
 		ula.internalRead(1);
 		setStatusFlags(intbus2.get());
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 		
 		//salvando a posição de desvio
 		PC.read();
 		memory.read();
 		statusMemory.storeIn0(); //the address is in position 0 of the status memory
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		PC.read();
 		statusMemory.storeIn1();
@@ -852,7 +991,11 @@ public class Architecture {
 
 	public void jgt()
 	{
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//pegando o registrador A
 		PC.read();
@@ -862,7 +1005,11 @@ public class Architecture {
 		registersInternalRead();
 		ula.store(0);
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//pegando o registrador B
 		PC.read();
@@ -877,7 +1024,11 @@ public class Architecture {
 		ula.internalRead(1);
 		setStatusFlags(intbus2.get());
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//Se regA for maior
 		if (Flags.getBit(0) == 0 && Flags.getBit(1) == 0)
@@ -887,12 +1038,20 @@ public class Architecture {
 			PC.store();
 		}
 		else
-			pcPlusPlus();
+			PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 
 	public void jlw()
 	{
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//pegando o registrador A
 		PC.read();
@@ -902,7 +1061,11 @@ public class Architecture {
 		registersInternalRead();
 		ula.store(0);
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//pegando o registrador B
 		PC.read();
@@ -917,7 +1080,11 @@ public class Architecture {
 		ula.internalRead(1);
 		setStatusFlags(intbus2.get());
 
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//Se regA for menor
 		if (Flags.getBit(1) == 1)
@@ -927,12 +1094,20 @@ public class Architecture {
 			PC.store();
 		}
 		else
-			pcPlusPlus();
+			PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 
 	public void call()
 	{
-		pcPlusPlus();
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 
 		//salvando a posição de desvio na ula0
 		PC.read();
@@ -997,7 +1172,11 @@ public class Architecture {
 			PC.store();
 		}
 		else
-			pcPlusPlus();
+			PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address;
 	}
 	
 	
@@ -1161,7 +1340,11 @@ public class Architecture {
 	 * @param address
 	 */
 	public void inc() {
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//Obtendo o registrador a ser incrementado
 		PC.read();
@@ -1178,7 +1361,11 @@ public class Architecture {
 
 		registersInternalStore(); //registrador recebendo o novo valor
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 	}
 	
 	/**
@@ -1215,7 +1402,11 @@ public class Architecture {
 	 * 		  
 	 */
 	public void moveRegReg() {
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		PC.read(); 
 		memory.read(); // the first register id is now in the external bus.
@@ -1223,7 +1414,11 @@ public class Architecture {
 		registersRead(); //starts the read from the register identified into demux bus
 		IR.store();
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		PC.read();
 		memory.read(); // the second register id is now in the external bus.
@@ -1231,11 +1426,19 @@ public class Architecture {
 		IR.read();
 		registersStore(); //performs an internal store for the register identified into demux bus
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 	}
 	
 	public void moveMemReg() {
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//pegando o valor a ser copiado e salvando em IR
 		PC.read(); 
@@ -1243,7 +1446,11 @@ public class Architecture {
 		memory.read(); // the first register id is now in the external bus.
 		IR.store();
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//Pegando o endereço do registrador a ter o valor modificado 
 		PC.read();
@@ -1253,18 +1460,30 @@ public class Architecture {
 		IR.read();
 		registersStore(); //performs an internal store for the register identified into demux bus
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 	}
 
 	public void moveRegMem() {
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//Pegando o endereço do registrador
 		PC.read();
 		memory.read(); //the second register id is now in the external bus.
 		demux.setValue(extbus1.get()); //points to the correct register
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//pegando endereço de memoria a ser modificado
 		PC.read(); 
@@ -1275,18 +1494,30 @@ public class Architecture {
 		registersRead();
 		memory.store();
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 	}
 
 	public void moveImmReg() {
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//pegando a constante
 		PC.read();
 		memory.read();
 		IR.store();
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 
 		//pegando endereço do REG
 		PC.read(); 
@@ -1297,7 +1528,11 @@ public class Architecture {
 		IR.read();
 		registersStore();
 
-		pcPlusPlus(); //PC ++
+		PC.internalRead();
+		ula.internalStore(1);
+		ula.inc();
+		ula.internalRead(1);
+		PC.internalStore(); //now PC points to the parameter address; //PC ++
 	}
 	
 	public ArrayList<Register> getRegistersList() {
