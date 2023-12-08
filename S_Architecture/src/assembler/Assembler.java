@@ -325,7 +325,7 @@ public class Assembler {
 		if ((p1.startsWith("%"))&&(p2.startsWith("%"))) //this is a moveRegReg comand
 			p = commands.indexOf("moveRegReg");
 
-		else if (p1.startsWith("&"))
+		else if (p2.startsWith("%"))
 			p = commands.indexOf("moveMemReg");
 
 		else if (p1.startsWith("%"))
@@ -352,7 +352,7 @@ public class Assembler {
 		if ((p1.startsWith("%")) && (p2.startsWith("%")))
 			p = commands.indexOf("addRegReg");
 
-		else if (p1.startsWith("&"))
+		else if (p2.startsWith("%"))
 			p = commands.indexOf("addMemReg");
 
 		else if (p1.startsWith("%"))
@@ -379,7 +379,7 @@ public class Assembler {
 		if ((p1.startsWith("%")) && (p2.startsWith("%")))
 			p = commands.indexOf("subRegReg");
 
-		else if (p1.startsWith("&"))
+		else if (p2.startsWith("%"))
 			p = commands.indexOf("subMemReg");
 
 		else if (p1.startsWith("%"))
